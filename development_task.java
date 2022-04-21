@@ -11,11 +11,11 @@ public class development_task {
     public static void main(String[] args) throws IOException {
 
        ArrayList<cellPhoneTower> tableCellPhoneTowers = initizializeArraylist();
-       int[] givenFrequencies = new int[]{110,111,112,113,114,115};
+       int[] givenFrequencies = new int[]{110, 111, 112, 113, 114, 115};
 
        setFrequencyToCellphoneTowers(tableCellPhoneTowers,givenFrequencies);
        System.out.println(tableCellPhoneTowers);
-    }
+       }
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /*                            FUNCTIONS                              */
@@ -28,7 +28,6 @@ public class development_task {
            - Int array of the given frequencies.
     */
     public static void setFrequencyToCellphoneTowers (ArrayList tableCellPhoneTowers, int[] givenFrequencies) {
-        
         int frequencyCounter = 0;
 
         for(int i = 0; i < tableCellPhoneTowers.size(); i++){
@@ -58,7 +57,7 @@ public class development_task {
     */
     public static void setclosestThenFartestCPT(ArrayList tableCellPhoneTowers, int tower, int[] givenFrequencies, int frequencyCounter) {
         
-        double minDistance = 100000000000.0;
+        double minDistance = 10000000000000.0;
         int index = 0;
 
         for(int i = 0; i < tableCellPhoneTowers.size(); i++){
@@ -72,10 +71,11 @@ public class development_task {
                     minDistance = dist;
                     index = i;
                 }
-            //If last tower cant find partner, return.
-            } else if( i == tableCellPhoneTowers.size()-1 && minDistance == 100000000000.0){
-                return;
             }
+        }
+        //If tower cant find partner, return.
+        if(minDistance == 10000000000000.0){
+            return;
         }
         //Set the closest tower to frequency.
         ((cellPhoneTower) tableCellPhoneTowers.get(index)).setFrequency(givenFrequencies[frequencyCounter%givenFrequencies.length]);
@@ -144,27 +144,17 @@ public class development_task {
            - longitude of second tower
     */
     private static double distance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(degreesTorad(lat1)) * Math.sin(degreesTorad(lat2)) 
-        + Math.cos(degreesTorad(lat1)) * Math.cos(degreesTorad(lat2)) * Math.cos(degreesTorad(theta));
-        dist = Math.acos(dist);
-        dist = radToDegrees(dist);
-        dist = dist * 1.609344; // Kilometers
-        return (dist);
-    }
-
-    /* 
-    @desc - Converts degrees to radians.
-    */
-    private static double degreesTorad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-      
-    /* 
-    @desc - Converts radians to degrees.
-    */
-    private static double radToDegrees(double rad) {
-        return (rad * 180.0 / Math.PI);
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+			return 0;
+		}
+		else {
+			double theta = lon1 - lon2;
+			double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+			dist = Math.acos(dist);
+			dist = Math.toDegrees(dist);
+			dist = dist * 60 * 1.1515* 1.609344;
+			return (dist);
+		}
     }
 }
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
