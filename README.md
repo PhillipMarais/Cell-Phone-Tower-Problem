@@ -14,7 +14,7 @@ I then use a algorithm (That I created by myself) to identify where the frequenc
 After they are assigned the program prints out the arraylist of cell phone towers.
 
 The way my algorithm works is to maximise the distance of towers with the same frequency, while trying to minimise
-the towers with the same frequency.
+the towers with different frequencies.
 ----------------------------------------------------------------------------------
                 Desription of algorithm :
 ----------------------------------------------------------------------------------
